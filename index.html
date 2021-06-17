@@ -8,10 +8,12 @@
 </head>
 <body>
     <script>
-        let playerChoice = prompt("Chose rock, paper or scissors").toLowerCase(); // initializing player variable
-        let computerChoice = chosing(); // initializing conmputer variable
+        'use strict'
+        let playerChoice;
+        let computerChoice;
 
-        console.log(singleGame(playerChoice, computerChoice));
+
+        game();
 
         //computer selects rock, paper or scissors based on generating random numbers btw 1 and 3, 
         // numbers correspond to variables, returns the value
@@ -35,32 +37,62 @@
             }
         }
 
-        console.log(playerChoice);
-        console.log(computerChoice);
-        
-
         //a single game of rock paper scissors
-        function singleGame(playerChoice, computerChoice) {
+        function playRound(playerChoice, computerChoice) {
+            playerChoice = prompt("Chose rock, paper or scissors").toLowerCase();
+            computerChoice = chosing();
+
+            const win = `You win, ${playerChoice} beats ${computerChoice}!`;
+            const lose = `You lose, ${computerChoice} beats ${playerChoice}!`;
+            const tie = `It's a tie: ${playerChoice} vs. ${computerChoice}! `;
 
             if (playerChoice == 'rock' && computerChoice == 'scissors') {
-                console.log("You win, rock beats scissors.");
+                return win;    
             } else if (playerChoice == 'rock' && computerChoice == 'rock') {
-                console.log("Rock vs. rock. It' a tie!");
+                return tie;
             } else if (playerChoice == 'rock' && computerChoice == 'paper') {
-                console.log("You lose, paper beats rock.");
+                return lose;
             } else if (playerChoice == 'scissors' && computerChoice == 'rock') {
-                console.log("You lose, rock beats scissors.");
+                return lose;
             } else if (playerChoice == 'scissors' && computerChoice == 'paper') {
-                console.log("You win, scissors beats paper.");
+                return win;
             } else if (playerChoice == 'scissors' && computerChoice == 'scissors') {
-                console.log("Scissors vs. scissors. It' a tie!");
+                return tie;
             } else if (playerChoice == 'paper' && computerChoice == 'rock') {
-                console.log("You win, paper beats rock.");
+                return win;
             } else if (playerChoice == "paper" && computerChoice == 'paper') {
-                console.log("Paper vs. paper. It's a tie.");
+                return tie;
             } else if (playerChoice == 'paper' && computerChoice == 'scissors') {
-                console.log("You lose, scissors beats paper.");
+                return lose;
             }
+        }
+        //five games
+        function game() {
+            let finalScore;
+            for (let i = 0; i < 5; i++) {
+                let playerScore = 0;                
+                let computerScore = 0;
+
+                let oneRound = playRound(playerChoice, computerChoice);
+                
+                console.log(oneRound);
+                if (oneRound.indexOf('win')) {
+                    playerScore++;
+                } else if (oneRound.indexOf('lose')) {
+                    computerScore++;
+                } 
+            }
+            //error playerScore not defined
+            if (playerScore > computerScore) {
+                finalScore = `Congratulations, you win! You scored ${playerScore}, and computer ${computerScore}`;
+                console.log(finalScore);
+            } else if (playerScore < computerScore) {
+                finalScore = `You've lost! You scored ${playerScore}, and computer ${computerScore}`;
+                console.log(finalScore);
+            } else if (playerScore == computerChoice) {
+                finalScore = `The game is tied! You scored ${playerScore}, and computer ${computerScore}`;
+
+            }          
         }
     </script>
 </body>
