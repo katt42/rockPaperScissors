@@ -9,13 +9,10 @@
 <body>
     <script>
         'use strict'
-        let playerChoice;
-        let computerChoice;
-
 
         game();
 
-        //computer selects rock, paper or scissors based on generating random numbers btw 1 and 3, 
+        // a function where computer selects rock, paper or scissors based on generating random numbers between 1 and 3, 
         // numbers correspond to variables, returns the value
         function chosing() {
             const rock = "rock";
@@ -36,11 +33,10 @@
                 return scissors;
             }
         }
-
-        //a single game of rock paper scissors
-        function playRound(playerChoice, computerChoice) {
-            playerChoice = prompt("Chose rock, paper or scissors").toLowerCase();
-            computerChoice = chosing();
+        // a single round of rock paper scissors (rps)
+        function playRound() {
+            let playerChoice = prompt("Chose rock, paper or scissors").toLowerCase();
+            let computerChoice = chosing();
 
             const win = `You win, ${playerChoice} beats ${computerChoice}!`;
             const lose = `You lose, ${computerChoice} beats ${playerChoice}!`;
@@ -66,33 +62,31 @@
                 return lose;
             }
         }
-        //five games
+        // plays a game of rps five times
         function game() {
-            let finalScore;
+            let playerScore = 0;             
+            let computerScore = 0;
             for (let i = 0; i < 5; i++) {
-                let playerScore = 0;                
-                let computerScore = 0;
-
-                let oneRound = playRound(playerChoice, computerChoice);
+                
+                let oneRound = playRound();
                 
                 console.log(oneRound);
-                if (oneRound.indexOf('win')) {
+                
+                if (oneRound.indexOf('win') !== -1) {
                     playerScore++;
-                } else if (oneRound.indexOf('lose')) {
+                } else if (oneRound.indexOf('lose') !== -1) {
                     computerScore++;
                 } 
             }
-            //error playerScore not defined
+            let finalScore;
             if (playerScore > computerScore) {
-                finalScore = `Congratulations, you win! You scored ${playerScore}, and computer ${computerScore}`;
-                console.log(finalScore);
+                finalScore = `Congratulations, you've won! You scored ${playerScore}, and computer scored ${computerScore}!`;
             } else if (playerScore < computerScore) {
-                finalScore = `You've lost! You scored ${playerScore}, and computer ${computerScore}`;
-                console.log(finalScore);
-            } else if (playerScore == computerChoice) {
-                finalScore = `The game is tied! You scored ${playerScore}, and computer ${computerScore}`;
-
+                finalScore = `You've lost! You scored ${playerScore}, and computer scored ${computerScore}.`;
+            } else if (playerScore == computerScore) {
+                finalScore = `The game is tied! You scored ${playerScore}, and computer scored ${computerScore}.`;
             }          
+            console.log(finalScore);
         }
     </script>
 </body>
